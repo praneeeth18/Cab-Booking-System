@@ -1,0 +1,17 @@
+<section class="wrapper">
+  <h1>Login</h1>
+  <form [formGroup]="loginForm" class="form" action="">
+    <input type="email" formControlName="email" placeholder="Email" />
+    <div class="text-danger" *ngIf="email?.dirty && email?.invalid">
+      Enter valid email
+    </div>
+    <input type="password" formControlName="password" placeholder="Password" />
+    <div class="text-danger" *ngIf="password?.dirty && password?.invalid">
+      Enter valid password
+    </div>
+    <button>Login</button>
+    <div class="already">
+      Don't have an account?<a routerLink="/register">SignUp</a>
+    </div>
+  </form>
+</section>

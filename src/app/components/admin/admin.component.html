@@ -1,0 +1,14 @@
+<section class="wrapper">
+  <h1>Administrator</h1>
+  <form class="form" [formGroup]="adminForm" action="">
+    <input type="email" formControlName="email" placeholder="Email" />
+    <div class="text-danger" *ngIf="email?.dirty && email?.invalid">
+      Enter valid email
+    </div>
+    <input type="password" formControlName="password" placeholder="Password" />
+    <div class="text-danger" *ngIf="password?.dirty && password?.invalid">
+      Enter valid password
+    </div>
+    <button>Login</button>
+  </form>
+</section>
