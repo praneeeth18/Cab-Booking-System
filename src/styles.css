@@ -34,6 +34,20 @@ h1 {
   background: rgb(207, 200, 200);
 }
 
+.form select {
+  width: 90%;
+  outline: none;
+  border: 1px solid white;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  background: rgb(207, 200, 200);
+}
+
+select:focus {
+  border: 1px solid rgb(151, 150, 150);
+}
+
 input:focus {
   border: 1px solid rgb(151, 150, 150);
 }

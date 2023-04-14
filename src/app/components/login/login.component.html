@@ -1,17 +1,36 @@
 <section class="wrapper">
   <h1>Login</h1>
-  <form [formGroup]="loginForm" class="form" action="">
-    <input type="email" formControlName="email" placeholder="Email" />
+  <form class="form" #loginform="ngForm" (ngSubmit)="onSubmit(loginform)">
+    <input
+      type="text"
+      name="email"
+      #email="ngModel"
+      [(ngModel)]="user.email"
+      placeholder="Email"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"
+      required
+    />
     <div class="text-danger" *ngIf="email?.dirty && email?.invalid">
       Enter valid email
     </div>
-    <input type="password" formControlName="password" placeholder="Password" />
+    <input
+      type="password"
+      name="password"
+      #password="ngModel"
+      [(ngModel)]="user.password"
+      placeholder="Password"
+      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+      required
+    />
     <div class="text-danger" *ngIf="password?.dirty && password?.invalid">
       Enter valid password
     </div>
     <button>Login</button>
     <div class="already">
       Don't have an account?<a routerLink="/register">SignUp</a>
+    </div>
+    <div class="already">
+      Login as Driver? <a routerLink="/driverlogin">Click here</a>
     </div>
   </form>
 </section>

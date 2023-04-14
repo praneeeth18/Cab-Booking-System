@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
+import { LoginserviceService } from 'src/app/services/loginservice.service';
 
 @Component({
   selector: 'app-login',
@@ -7,24 +11,29 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private service: LoginserviceService,
+    private router: Router,
+    private logout: AuthService
+  ) {}
+
+  public user = new User();
+
   ngOnInit(): void {}
 
-  public loginForm = this.fb.group({
-    email: new FormControl('', [
-      Validators.required,
-      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$'),
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.pattern('(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}'),
-    ]),
-  });
-
-  get email() {
-    return this.loginForm.get('email');
-  }
-  get password() {
-    return this.loginForm.get('password');
+  onSubmit(loginForm: NgForm) {
+    // Check if the form is valid
+    if (loginForm.valid) {
+      // Call the getUser method from the login service to validate the user
+      this.service
+        .getUser(this.user.email, this.user.password)
+        .subscribe((data) => {
+          alert('You have login successfully!');
+          this.router.navigateByUrl('/booking');
+        });
+    } else {
+      alert('Invalid Email/Password');
+    }
   }
 }

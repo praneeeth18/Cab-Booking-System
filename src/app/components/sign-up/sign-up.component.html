@@ -1,19 +1,69 @@
 <section class="wrapper">
   <h1>Sign Up</h1>
-  <form class="form" [formGroup]="registerForm" action="">
-    <input type="text" formControlName="firstname" placeholder="Firstname" />
-    <div class="text-danger" *ngIf="firstname?.dirty && firstname?.invalid">
-      Enter valid firstname
+  <form class="form" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+    <input
+      type="text"
+      name="firstName"
+      #firstname="ngModel"
+      [(ngModel)]="user.firstname"
+      placeholder="Firstname"
+      pattern="[a-zA-Z]{3,}"
+      required
+    />
+    <div
+      class="text-danger"
+      *ngIf="firstname.dirty && firstname.errors?.['required']"
+    >
+      Firstname is required
     </div>
-    <input type="text" formControlName="lastname" placeholder="Lastname" />
-    <div class="text-danger" *ngIf="lastname?.dirty && lastname?.invalid">
-      Enter valid lastname
+    <div
+      class="textdanger"
+      *ngIf="firstname.dirty && firstname.errors?.['pattern']"
+    >
+      Only Alphabet are required in Firstname
     </div>
-    <input type="email" formControlName="email" placeholder="Email" />
+    <input
+      type="text"
+      name="lastName"
+      #lastname="ngModel"
+      [(ngModel)]="user.lastname"
+      placeholder="Lastname"
+      pattern="[a-zA-Z]{3,}"
+      required
+    />
+    <div
+      class="text-danger"
+      *ngIf="lastname.dirty && lastname.errors?.['required']"
+    >
+      Lastname is required
+    </div>
+    <div
+      class="textdanger"
+      *ngIf="lastname.dirty && lastname.errors?.['pattern']"
+    >
+      Only Alphabet are required in Lastname
+    </div>
+    <input
+      type="text"
+      name="email"
+      #email="ngModel"
+      [(ngModel)]="user.email"
+      placeholder="Email"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"
+      required
+    />
     <div class="text-danger" *ngIf="email?.dirty && email?.invalid">
       Enter valid email
     </div>
-    <input type="password" formControlName="password" placeholder="Password" />
+    <input
+      type="password"
+      name="password"
+      #password="ngModel"
+      [(ngModel)]="user.password"
+      placeholder="Password"
+      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+      required
+    />
     <div class="text-danger" *ngIf="password?.dirty && password?.invalid">
       Enter valid password
     </div>

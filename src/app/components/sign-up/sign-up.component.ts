@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { LoginserviceService } from 'src/app/services/loginservice.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -7,38 +10,33 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
-  ngOnInit(): void {}
+  constructor(
+    private fb: FormBuilder,
+    private service: LoginserviceService,
+    private router: Router
+  ) {}
 
-  public registerForm = this.fb.group({
-    firstname: new FormControl('', [
-      Validators.required,
-      Validators.pattern('[a-zA-Z]{3,}'),
-    ]),
-    lastname: new FormControl('', [
-      Validators.required,
-      Validators.pattern('[a-zA-Z]{3,}'),
-    ]),
-    email: new FormControl('', [
-      Validators.required,
-      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$'),
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.pattern('(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}'),
-    ]),
-  });
+  public user: User;
 
-  get firstname() {
-    return this.registerForm.get('firstname');
+  ngOnInit(): void {
+    this.user = new User();
   }
-  get lastname() {
-    return this.registerForm.get('lastname');
-  }
-  get email() {
-    return this.registerForm.get('email');
-  }
-  get password() {
-    return this.registerForm.get('password');
+
+  onSubmit(form: NgForm) {
+    // Check if the form is valid
+    if (form.valid) {
+      // Call the addUser method from the login service to add the user
+      this.service.addUser(form.value).subscribe(
+        (data) => {
+          alert('You have registered successfully!');
+          // console.log(data);
+          this.router.navigateByUrl('/');
+        },
+        (error) => {
+          console.log('Error:', error);
+          alert('There was an error registering your account.');
+        }
+      );
+    }
   }
 }

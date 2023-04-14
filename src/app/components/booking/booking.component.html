@@ -1,0 +1,52 @@
+<section class="wrapper">
+  <h1>Book Your Ride</h1>
+  <form class="form" [formGroup]="cabBookingForm">
+    <select id="source" name="source" formControlName="source" required>
+      <option value="" disabled selected hidden>Source</option>
+      <option value="Hyderabad">Hyderabad</option>
+      <option value="LB Nagar">LB Nagar</option>
+      <option value="Vanasthalipuram">Vanasthalipuram</option>
+    </select>
+    <div class="text-danger" *ngIf="source?.dirty && source?.invalid">
+      Select source
+    </div>
+    <select
+      id="destination"
+      name="destination"
+      formControlName="destination"
+      required
+    >
+      <option value="" disabled selected hidden>Destination</option>
+      <option value="Tirupati">Tirupati</option>
+      <option value="Amberpet">Amberpet</option>
+      <option value="Jubliee Hills">Jubliee Hills</option>
+    </select>
+    <div class="text-danger" *ngIf="destination?.dirty && destination?.invalid">
+      Select destination
+    </div>
+    <select
+      id="available-cars"
+      name="available-cars"
+      formControlName="car"
+      required
+    >
+      <option value="" disabled selected hidden>Available Cars</option>
+      <optgroup label="Hatchback">
+        <option value="swift">Maruti Swift</option>
+        <option value="baleno">Maruti Baleno</option>
+      </optgroup>
+      <optgroup label="Sedan">
+        <option value="swiftdzire">Maruti Swift Dzire</option>
+        <option value="verna">Hyundai Verna</option>
+      </optgroup>
+      <optgroup label="Luxury">
+        <option value="sclass">Mercedes Benz S Class</option>
+        <option value="bmwx4">BMW X4</option>
+      </optgroup>
+    </select>
+    <div class="text-danger" *ngIf="car?.dirty && car?.invalid">
+      Select a car
+    </div>
+    <button (click)="onBook()">Book Ride Now</button>
+  </form>
+</section>

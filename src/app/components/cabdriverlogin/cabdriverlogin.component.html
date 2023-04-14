@@ -1,13 +1,17 @@
 <section class="wrapper">
-  <h1>Administrator</h1>
-  <form class="form" #adminform="ngForm" (ngSubmit)="onSubmit(adminform)">
+  <h1>Driver Login</h1>
+  <form
+    class="form"
+    #driverloginform="ngForm"
+    (ngSubmit)="onSubmit(driverloginform)"
+  >
     <input
       type="text"
       name="email"
       #email="ngModel"
       [(ngModel)]="user.email"
       placeholder="Email"
-      pattern="[a-z0-9._%+-]+@[dxc]+.[a-z]{2,}$"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"
       required
     />
     <div class="text-danger" *ngIf="email?.dirty && email?.invalid">
