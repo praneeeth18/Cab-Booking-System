@@ -8,9 +8,11 @@ import { BookingComponent } from './components/booking/booking.component';
 import { DriverhomeComponent } from './components/driverhome/driverhome.component';
 import { BookinghistoryComponent } from './components/bookinghistory/bookinghistory.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: HomepageComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'register', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
   { path: 'adminLogin', component: AdminComponent },
