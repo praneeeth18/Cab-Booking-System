@@ -1,8 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">Cab Booking</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/">Home</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav" *ngIf="isLoggedIn">
+        <!-- <li class="nav-item">
+              <a href="#" class="nav-link active">Welcome, Praneeth</a>
+            </li> -->
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <section class="wrapper">
   <h1>Book Your Ride</h1>
-  <form class="form" [formGroup]="cabBookingForm">
-    <select id="source" name="source" formControlName="source" required>
-      <option value="" disabled selected hidden>Source</option>
+  <form class="form" #bookingForm="ngForm" (ngSubmit)="onBooking(bookingForm)">
+    <label for="source">Source:</label>
+    <select
+      id="source"
+      name="source"
+      #source="ngModel"
+      [(ngModel)]="booking.source"
+      required
+    >
+      <option value="" disabled selected>Select source</option>
       <option value="Hyderabad">Hyderabad</option>
       <option value="LB Nagar">LB Nagar</option>
       <option value="Vanasthalipuram">Vanasthalipuram</option>
@@ -10,10 +48,12 @@
     <div class="text-danger" *ngIf="source?.dirty && source?.invalid">
       Select source
     </div>
+    <label for="destination">Destination:</label>
     <select
       id="destination"
       name="destination"
-      formControlName="destination"
+      #destination="ngModel"
+      [(ngModel)]="booking.destination"
       required
     >
       <option value="" disabled selected hidden>Destination</option>
@@ -24,14 +64,22 @@
     <div class="text-danger" *ngIf="destination?.dirty && destination?.invalid">
       Select destination
     </div>
+    <label for="car">Car Model:</label>
     <select
-      id="available-cars"
-      name="available-cars"
-      formControlName="car"
+      id="cabModel"
+      name="cabMdoel"
+      #cabModel="ngModel"
+      [(ngModel)]="booking.cabModel"
       required
     >
       <option value="" disabled selected hidden>Available Cars</option>
-      <optgroup label="Hatchback">
+      <option value="swift">Maruti Swift</option>
+      <option value="baleno">Maruti Baleno</option>
+      <option value="swiftdzire">Maruti Swift Dzire</option>
+      <option value="verna">Hyundai Verna</option>
+      <option value="sclass">Mercedes Benz S Class</option>
+      <option value="bmwx4">BMW X4</option>
+      <!-- <optgroup label="Hatchback">
         <option value="swift">Maruti Swift</option>
         <option value="baleno">Maruti Baleno</option>
       </optgroup>
@@ -42,11 +90,29 @@
       <optgroup label="Luxury">
         <option value="sclass">Mercedes Benz S Class</option>
         <option value="bmwx4">BMW X4</option>
-      </optgroup>
+      </optgroup> -->
     </select>
-    <div class="text-danger" *ngIf="car?.dirty && car?.invalid">
+    <div class="text-danger" *ngIf="cabModel?.dirty && cabModel?.['required']">
       Select a car
     </div>
-    <button (click)="onBook()">Book Ride Now</button>
+    <div class="estimated">
+      <label for="price">Estimated Price:</label
+      ><input
+        type="text"
+        id="price"
+        name="price"
+        [(ngModel)]="booking.price"
+        readonly
+      />
+    </div>
+    <button
+      class="pricebtn"
+      #pricebtn
+      (click)="getPrice(bookingForm)"
+      [disabled]="clicked"
+    >
+      Check Price
+    </button>
+    <button>Book Ride Now</button>
   </form>
 </section>

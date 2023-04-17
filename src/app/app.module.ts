@@ -15,6 +15,7 @@ import { DriverhomeComponent } from './components/driverhome/driverhome.componen
 import { BookinghistoryComponent } from './components/bookinghistory/bookinghistory.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AdminHomeComponent } from './components/admin-home/admin-home.component
     DriverhomeComponent,
     BookinghistoryComponent,
     AdminHomeComponent,
+    HomepageComponent,
   ],
   imports: [
     BrowserModule,

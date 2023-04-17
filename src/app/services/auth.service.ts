@@ -1,18 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
+import { UserLogin } from '../models/user-login';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private loggedIn: boolean = false;
+  private token: string;
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  public setLoggedIn(value: boolean) {
-    this.loggedIn = value;
-  }
-
-  public isLoggedIn(): boolean {
-    return this.loggedIn;
+  login(userLogin: UserLogin) {
+    return this.http.post(`http://localhost:8080/login`, userLogin, {
+      responseType: 'text',
+    });
   }
 }

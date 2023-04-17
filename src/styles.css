@@ -11,7 +11,7 @@ body {
 
 .wrapper {
   width: 350px;
-  padding: 2rem 1rem;
+  padding: 1rem 1rem;
   margin: 50px auto;
   background-color: white;
   border-radius: 10px;
@@ -21,7 +21,7 @@ body {
 
 h1 {
   font-size: 2rem;
-  margin: 1.2rem;
+  margin: 1rem;
 }
 
 .form input {
@@ -44,6 +44,11 @@ h1 {
   background: rgb(207, 200, 200);
 }
 
+label {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
 select:focus {
   border: 1px solid rgb(151, 150, 150);
 }
@@ -54,7 +59,7 @@ input:focus {
 
 button {
   font-size: 1rem;
-  margin-top: 2rem;
+  margin-top: 20px;
   padding: 10px 0;
   border-radius: 10px;
   outline: none;

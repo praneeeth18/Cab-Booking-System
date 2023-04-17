@@ -13,6 +13,8 @@ export class AdminHomeComponent implements OnInit {
     this.getUsers();
   }
 
+  isLoggedIn = true;
+
   public users;
   getUsers() {
     this.userService.getUsers().subscribe((data) => {

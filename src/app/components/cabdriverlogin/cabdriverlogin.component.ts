@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 
 @Component({
@@ -8,19 +9,19 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./cabdriverlogin.component.css'],
 })
 export class CabdriverloginComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
   ngOnInit(): void {}
 
   public user = new User();
   onSubmit(form: NgForm) {
-    // if (form.valid) {
-    //   this.service.addUser(this.user).subscribe((data) => {
-    //     alert('You have login successfully!');
-    //     this.router.navigateByUrl('/');
-    //   });
-    // } else {
-    //   alert('Login unsuccessful!!');
-    // }
+    if (form.valid) {
+      //   this.service.addUser(this.user).subscribe((data) => {
+      alert('You have login successfully!');
+      this.router.navigateByUrl('/driverHome');
+      //   });
+    } else {
+      alert('Login unsuccessful!!');
+    }
   }
 
   // public driverloginForm = this.fb.group({

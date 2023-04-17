@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Booking } from 'src/app/models/booking';
+import { User } from 'src/app/models/user';
+import { LoginserviceService } from 'src/app/services/loginservice.service';
 
 @Component({
   selector: 'app-booking',
@@ -7,30 +11,63 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./booking.component.css'],
 })
 export class BookingComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
-  ngOnInit(): void {}
+  constructor(
+    private fb: FormBuilder,
+    private service: LoginserviceService,
+    private router: Router
+  ) {}
 
-  public cabBookingForm = this.fb.group({
-    source: new FormControl('', [Validators.required]),
-    destination: new FormControl('', [Validators.required]),
-    car: new FormControl('', [Validators.required]),
-  });
+  public user: User;
+  public booking: Booking;
+  public clicked: boolean | undefined;
+  ngOnInit(): void {
+    this.user = new User();
+    this.booking = new Booking();
+  }
 
-  onBook() {
-    if (this.cabBookingForm.valid) {
-      console.log(this.cabBookingForm.value);
-    } else {
-      alert('Enter valid details!');
+  isLoggedIn = true;
+
+  public email: string;
+
+  onBooking(form: NgForm) {
+    // Check if the form is valid
+    if (form.valid) {
+      // Call the addBooking method form the login service to add the booking details
+      //     this.service.addBooking(form.value).subscribe();
+      //     alert('Your cab is booked!!');
+      //     this.router.navigateByUrl('/bookingHistory');
+      this.email = localStorage.getItem('email');
+      this.booking = form.value;
+      this.booking.email = this.email;
+      console.log(this.booking);
+      // console.log(this.booking);
+      // this.service.getUserById(this.email).subscribe((data) => {
+      //   if (data.email == this.email) {
+      //     this.user = data;
+      //   }
+      //   if (this.user.email == this.email) {
+
+      //
+      //   }
+      // });
+      this.service.addBooking(this.booking).subscribe((data) => {
+        // console.log(data);
+      });
+      alert('Your cab is booked!!');
+      this.router.navigateByUrl('/bookingHistory');
     }
   }
 
-  get source() {
-    return this.cabBookingForm.get('firstname');
+  getPrice(form: NgForm) {
+    if (form.valid) {
+      this.booking.price = Math.round(1200 + Math.random() * 500);
+      this.clicked = true;
+    }
   }
-  get destination() {
-    return this.cabBookingForm.get('lastname');
-  }
-  get car() {
-    return this.cabBookingForm.get('email');
+
+  logout() {
+    localStorage.removeItem('email');
+    alert('Successfully Logged Out!');
+    this.router.navigateByUrl('/login');
   }
 }
