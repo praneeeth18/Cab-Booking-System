@@ -17,6 +17,11 @@
         <li class="nav-item">
           <a class="nav-link" aria-current="page" routerLink="/">Home</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/bookingHistory"
+            >My Bookings</a
+          >
+        </li>
       </ul>
       <ul class="navbar-nav" *ngIf="isLoggedIn">
         <!-- <li class="nav-item">
@@ -67,19 +72,13 @@
     <label for="car">Car Model:</label>
     <select
       id="cabModel"
-      name="cabMdoel"
+      name="cabModel"
       #cabModel="ngModel"
       [(ngModel)]="booking.cabModel"
       required
     >
       <option value="" disabled selected hidden>Available Cars</option>
-      <option value="swift">Maruti Swift</option>
-      <option value="baleno">Maruti Baleno</option>
-      <option value="swiftdzire">Maruti Swift Dzire</option>
-      <option value="verna">Hyundai Verna</option>
-      <option value="sclass">Mercedes Benz S Class</option>
-      <option value="bmwx4">BMW X4</option>
-      <!-- <optgroup label="Hatchback">
+      <optgroup label="Hatchback">
         <option value="swift">Maruti Swift</option>
         <option value="baleno">Maruti Baleno</option>
       </optgroup>
@@ -90,7 +89,7 @@
       <optgroup label="Luxury">
         <option value="sclass">Mercedes Benz S Class</option>
         <option value="bmwx4">BMW X4</option>
-      </optgroup> -->
+      </optgroup>
     </select>
     <div class="text-danger" *ngIf="cabModel?.dirty && cabModel?.['required']">
       Select a car
