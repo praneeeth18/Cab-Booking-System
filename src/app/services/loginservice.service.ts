@@ -57,13 +57,26 @@ export class LoginserviceService {
     return this.http.get<Booking>(`http://localhost:8080/bookings`);
   }
 
-  getBookingById(email: string): Observable<Booking> {
-    return this.http.get<Booking>(
-      `http://localhost:8080/bookings?email=${email}`
-    );
+  // getBookingById(email: string): Observable<Booking> {
+  //   return this.http.get<Booking>(
+  //     `http://localhost:8080/bookings?email=${email}`
+  //   );
+  // }
+
+  // getBookingById(email: any): Observable<Booking> {
+  //   return this.http.get<Booking>(`http://localhost:8080/bookings`, email);
+  // }
+  getBookingById(email: string) {
+    return this.http.get(`http://localhost:8080/bookings/${email}`);
+  }
+  deleteBooking(email) {
+    return this.http.delete(`http://localhost:8080/bookings`, email);
   }
 
-  deleteBooking(id) {
-    return this.http.delete(`http://localhost:8080/bookings/${id}`);
+  updateBooking(id: number, updatedBooking: Booking) {
+    return this.http.put(
+      `http://localhost:8080/bookings/${id}`,
+      updatedBooking
+    );
   }
 }

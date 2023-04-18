@@ -39,19 +39,10 @@ export class BookingComponent implements OnInit {
       this.email = localStorage.getItem('email');
       this.booking = form.value;
       this.booking.email = this.email;
+      this.booking.status = 'Pending';
       console.log(this.booking);
-      // console.log(this.booking);
-      // this.service.getUserById(this.email).subscribe((data) => {
-      //   if (data.email == this.email) {
-      //     this.user = data;
-      //   }
-      //   if (this.user.email == this.email) {
-
-      //
-      //   }
-      // });
       this.service.addBooking(this.booking).subscribe((data) => {
-        // console.log(data);
+        console.log(data);
       });
       alert('Your cab is booked!!');
       this.router.navigateByUrl('/bookingHistory');

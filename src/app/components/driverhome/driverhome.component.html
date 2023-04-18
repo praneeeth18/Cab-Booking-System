@@ -37,11 +37,17 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item">Source: {{ booking.source }}</li>
         <li class="list-group-item">Destination: {{ booking.destination }}</li>
-        <!-- <li class="list-group-item">Car:</li> -->
+        <li class="list-group-item">Car:</li>
         <li class="list-group-item">Price: {{ booking.price }}</li>
+        <li class="list-group-item">Status: {{ booking.status }}</li>
       </ul>
-      <a href="#" class="btn btn-success" style="margin-right: 5px">Accept</a>
-      <a href="#" class="btn btn-danger">Reject</a>
+      <a
+        class="btn btn-success"
+        style="margin-right: 5px"
+        (click)="acceptBooking(booking)"
+        >Accept</a
+      >
+      <a class="btn btn-danger" (click)="rejectBooking(booking)">Reject</a>
     </div>
   </div>
 </div>

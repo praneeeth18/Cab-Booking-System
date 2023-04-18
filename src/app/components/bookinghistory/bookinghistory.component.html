@@ -17,6 +17,9 @@
         <li class="nav-item">
           <a class="nav-link" aria-current="page" routerLink="/">Home</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/booking">Book</a>
+        </li>
       </ul>
       <ul class="navbar-nav" *ngIf="isLoggedIn">
         <!-- <li class="nav-item">
@@ -37,10 +40,11 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item">Source: {{ booking.source }}</li>
         <li class="list-group-item">Destination: {{ booking.destination }}</li>
-        <!-- <li class="list-group-item">Car: {{ booking.car }}</li> -->
+        <li class="list-group-item">Car: {{ booking.cabModel }}</li>
         <li class="list-group-item">Price: {{ booking.price }}</li>
+        <li class="list-group-item">Status: {{ booking.status }}</li>
       </ul>
-      <a href="#" class="btn btn-danger">Cancel Ride</a>
+      <a class="btn btn-danger" (click)="cancelRide(booking)">Cancel Ride</a>
     </div>
   </div>
 </div>
