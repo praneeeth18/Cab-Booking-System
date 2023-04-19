@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user';
+import { UserLogin } from 'src/app/models/user-login';
 import { LoginserviceService } from 'src/app/services/loginservice.service';
 
 @Component({
@@ -16,36 +16,42 @@ export class AdminComponent implements OnInit {
     private router: Router
   ) {}
 
-  public user = new User();
+  public user = new UserLogin();
   ngOnInit(): void {}
-  onSubmit(adminForm: NgForm) {
-    if (adminForm.valid) {
-      this.service
-        .getUser(this.user.email, this.user.password)
-        .subscribe((data) => {
-          alert('Logged in as Admin!');
+  // onSubmit(adminForm: NgForm) {
+  //   if (adminForm.valid) {
+  //     this.service
+  //       .getUser(this.user.email, this.user.password)
+  //       .subscribe((data) => {
+  //         alert('Logged in as Admin!');
+  //         this.router.navigateByUrl('/adminHome');
+  //       });
+  //   } else {
+  //     alert('Invalid email/password!!');
+  //   }
+  // }
+
+  onSubmit(form: NgForm) {
+    // Check if the form is valid
+    if (form.valid) {
+      // Call the getUser method from the login service to validate the user
+      this.user = form.value;
+      this.service.getAdmin(this.user.email, this.user.password).subscribe(
+        (response) => {
+          localStorage.setItem('email', this.user.email);
+          alert('You have logged in successfully!');
           this.router.navigateByUrl('/adminHome');
-        });
+        },
+        (error) => {
+          if (error.status === 404) {
+            alert('Invalid email/password');
+          } else {
+            console.error(error);
+          }
+        }
+      );
     } else {
-      alert('Invalid email/password!!');
+      alert('Invalid Email/Password');
     }
   }
-
-  // public adminForm = this.fb.group({
-  //   email: new FormControl('', [
-  //     Validators.required,
-  //     Validators.pattern('[a-z0-9._%+-]+@[dxc]+.[a-z]{2,}$'),
-  //   ]),
-  //   password: new FormControl('', [
-  //     Validators.required,
-  //     Validators.pattern('(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}'),
-  //   ]),
-  // });
-
-  // get email() {
-  //   return this.adminForm.get('email');
-  // }
-  // get password() {
-  //   return this.adminForm.get('password');
-  // }
 }
