@@ -5,5 +5,8 @@ export class Booking {
   public destination: string;
   public cabModel: string;
   public price: number;
-  public status: string = 'Pending';
+  public status: string;
+  public vehicleno: string;
+  public driveName: string;
+  public driverno: string;
 }

@@ -49,6 +49,6 @@ export class DriverhomeComponent implements OnInit {
   logout() {
     localStorage.removeItem('email');
     alert('Successfully Logged Out!');
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/');
   }
 }

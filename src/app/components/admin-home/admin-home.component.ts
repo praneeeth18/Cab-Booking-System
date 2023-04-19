@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { LoginserviceService } from 'src/app/services/loginservice.service';
 
@@ -8,7 +9,10 @@ import { LoginserviceService } from 'src/app/services/loginservice.service';
   styleUrls: ['./admin-home.component.css'],
 })
 export class AdminHomeComponent implements OnInit {
-  constructor(private userService: LoginserviceService) {}
+  constructor(
+    private userService: LoginserviceService,
+    private router: Router
+  ) {}
   ngOnInit(): void {
     this.getUsers();
   }
@@ -44,5 +48,11 @@ export class AdminHomeComponent implements OnInit {
         }
       );
     }
+  }
+
+  logout() {
+    localStorage.removeItem('email');
+    alert('Successfully Logged Out!');
+    this.router.navigateByUrl('/');
   }
 }

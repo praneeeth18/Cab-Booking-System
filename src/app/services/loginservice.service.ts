@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { User } from '../models/user';
 import { Booking } from '../models/booking';
+import { Driver } from '../models/driver';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +19,39 @@ export class LoginserviceService {
     return this.http.get<User>(`http://localhost:8080/users`);
   }
 
-  getUser(email, password): Observable<User> {
-    return this.http.get<User>(
-      `http://localhost:8080/users?email=${email}&password=${password}`
-    );
+  // getUser(email: string, password: string): Observable<User> {
+  //   return this.http.get<User>(
+  //     `http://localhost:8080/user/${email}/${password}`
+  //   );
+  // }
+  getUser(email: string, password: string): Observable<boolean> {
+    return this.http
+      .get<boolean>(`http://localhost:8080/users/${email}/${password}`)
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
+  }
+
+  getDriver(email: string, password: string): Observable<boolean> {
+    return this.http
+      .get<boolean>(`http://localhost:8080/driverDetails/${email}/${password}`)
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
+  }
+
+  getAdmin(email, password): Observable<boolean> {
+    return this.http
+      .get<boolean>(`http://localhost:8080/adminDetails/${email}/${password}`)
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
   }
 
   getUserById(email) {
@@ -34,12 +64,6 @@ export class LoginserviceService {
 
   deleteUser(id) {
     return this.http.delete(`http://localhost:8080/users/${id}`);
-  }
-
-  getAdmin(email, password): Observable<User> {
-    return this.http.get<User>(
-      `http://localhost:8080/adminDetails?email=${email}&password=${password}`
-    );
   }
 
   // addBooking(userId: number, booking: Booking): Observable<User> {
