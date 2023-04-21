@@ -22,29 +22,6 @@ export class LoginComponent implements OnInit {
   public user: UserLogin = new UserLogin();
   ngOnInit(): void {}
 
-  // onSubmit(loginForm: NgForm) {
-  //   // Check if the form is valid
-  //   if (loginForm.valid) {
-  //     // Call the getUser method from the login service to validate the user
-  //     // this.service
-  //     //   .login(this.user.email, this.user.password)
-  //     //   .subscribe((response) => {
-  //     //     localStorage.setItem('token', response.token);
-  //     //   });
-  //     this.user = loginForm.value;
-  //     this.service
-  //       .getUser(this.user.email, this.user.password)
-  //       .subscribe(
-  //         () => {
-  //         localStorage.setItem('email', this.user.email);
-  //         alert('You have login successfully!');
-  //         this.router.navigateByUrl('/booking');
-  //       });
-  //     // console.log(this.user);
-  //   } else {
-  //     alert('Invalid Email/Password');
-  //   }
-  // }
   onSubmit(loginForm: NgForm) {
     // Check if the form is valid
     if (loginForm.valid) {
